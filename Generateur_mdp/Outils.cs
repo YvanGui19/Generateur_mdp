@@ -10,9 +10,26 @@ namespace FormationCS
 {
   static class Outils
     {
+        static bool VerifierMotDePasse(string motDePasse, int choixAlphabet)
+        {
+            bool contientMinuscule = motDePasse.Any(char.IsLower);
+            bool contientMajuscule = motDePasse.Any(char.IsUpper);
+            bool contientChiffre = motDePasse.Any(char.IsDigit);
+            bool contientCaractereSpecial = motDePasse.Any(ch => "&~#$£*µ%§!?€|-_@.".Contains(ch));
+
+            if (choixAlphabet == 2)
+                return contientMinuscule && contientMajuscule;
+            else if (choixAlphabet == 3)
+                return contientMinuscule && contientMajuscule && contientChiffre;
+            else if (choixAlphabet == 4)
+                return contientMinuscule && contientMajuscule && contientChiffre && contientCaractereSpecial;
+
+            return true;
+        }
+
         public static int DemanderNombrePositifNonNul(string question)
         {
-            return DemanderNombreEntre(question, 6, 23, "ERREUR : La longueur doit être comprise entre 6 et 23");
+            return DemanderNombreEntre(question, 8, 50, "ERREUR : La longueur doit être comprise entre 8 et 50");
         }
 
         public static int DemanderNombreEntre(string question, int min, int max, string messageErreurPerso = null)

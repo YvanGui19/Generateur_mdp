@@ -12,7 +12,16 @@ namespace Generateur_mdp
 
             while (continuer)
             {
-                int combienMotDePasse = Outils.DemanderNombre(" Vous souhaitez générer combien de mot de passe ? ");
+                int combienMotDePasse;
+                do
+                {
+                    combienMotDePasse = Outils.DemanderNombre(" Vous souhaitez générer combien de mot de passe (entre 1 et 100) ? ");
+                    if (combienMotDePasse < 1 || combienMotDePasse > 100)
+                    {
+                        Console.WriteLine("Le nombre de mots de passe doit être compris entre 1 et 100. Veuillez réessayer.");
+                    }
+                } while (combienMotDePasse < 1 || combienMotDePasse > 100);
+
                 Console.WriteLine();
 
                 int longueurMotDePasse = Outils.DemanderNombrePositifNonNul(" Longueur du mot de passe : ");
@@ -77,7 +86,6 @@ namespace Generateur_mdp
                 }
             }
         }
-
         static bool VerifierMotDePasse(string motDePasse, int choixAlphabet)
         {
             bool contientMinuscule = motDePasse.Any(char.IsLower);
